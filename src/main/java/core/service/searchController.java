@@ -12,21 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/search")
 public class searchController {
-    @Autowired
-    private EngineUtils engineUtils;
 
-    @GetMapping(value="/text/{search_key}")
-    public ResponseEntity<?> searchText(@PathVariable String search_key){
-        engineUtils.scrapingTheWeb(75);
-        engineUtils.rankSearchResults(25);
-        return new ResponseEntity<>("Your results", HttpStatus.OK);
+    @GetMapping(value="/{num}")
+    public ResponseEntity<?> searchText(@PathVariable int num){
+        long result = 1;
+        for (int i = 1; i <= num; i++) {
+            for(int j=0; j<= num; j++){
+                result *= i;
+            }
+        }
+        return new ResponseEntity<>("[+] your results are: ********** " + result + " ********", HttpStatus.OK);
     }
-
-    @GetMapping(value="/photo/{search_key}")
-    public ResponseEntity<?> searchPhoto(@PathVariable String search_key){
-        engineUtils.scrapingTheWeb(400);
-        engineUtils.rankSearchResults(100);
-        return new ResponseEntity<>("Your results",HttpStatus.OK);
-    }
-
 }
